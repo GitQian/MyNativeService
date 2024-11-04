@@ -1,0 +1,27 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            // "includePath": [
+            //     "${workspaceFolder}/**"
+            // ],
+            "includePath": [
+                "/home/qiansheng/CSC1/android/lagvm/LINUX/android/kernel/msm-5.4/include/uapi/**",
+                "/home/qiansheng/CSC1/android/lagvm/LINUX/android/system/core/liblog/include/**",
+                "/home/qiansheng/CSC1/android/lagvm/LINUX/android/frameworks/native/include/**",
+                "/home/qiansheng/CSC1/android/lagvm/LINUX/android/system/core/libutils/include/**",
+                "/home/qiansheng/CSC1/android/lagvm/LINUX/android/system/core/libsystem/include/**",
+                "/home/qiansheng/CSC1/android/lagvm/LINUX/android/system/core/base/include/**",
+                "/home/qiansheng/CSC1/android/lagvm/LINUX/android/system/core/libcutils/include/**",
+                "/home/qiansheng/CSC1/android/lagvm/LINUX/android/bionic/libc/include/**",
+
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
+}

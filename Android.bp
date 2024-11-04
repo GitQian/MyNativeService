@@ -1,0 +1,34 @@
+cc_defaults {
+    name: "MyDemoflags",
+
+    cflags: [
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wno-unused-parameter",
+        "-Wno-missing-field-initializers",
+        "-Wno-unused-parameter",
+        "-Wno-unused-variable",
+        "-Wno-incompatible-pointer-types",
+        "-Wno-sign-compare",
+    ],
+    product_variables: {
+        binder32bit: {
+            cflags: ["-DBINDER_IPC_32BIT=1"],
+        },
+    },
+}
+
+cc_binary {
+    name: "MyOTAServer",
+    defaults: ["MyDemoflags"],
+    srcs: ["IOTA.cpp", "OTAServer.cpp", "main.cpp", "ICallback.cpp"],
+
+    shared_libs: [
+        "liblog",
+        "libcutils",
+        "libandroidfw",
+        "libutils",
+        "libbinder",
+    ],
+}
