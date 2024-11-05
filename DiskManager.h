@@ -5,11 +5,18 @@
 
 using namespace std;
 
+/**
+1、有虚函数必须声明虚析构函数
+2、单例为了安全，添加禁止构造函数和赋值操作符
+
+ */
+
 namespace DiskFind
 {
     class DiskListener
     {
     private:
+        
     public:
         virtual void onUdiskStateChanged(int usbState, string usbPath) = 0; // U盘状态改变时的回调函数
         virtual ~DiskListener() {}                                          // 添加虚析构函数
@@ -21,6 +28,8 @@ namespace DiskFind
         // 单例，需要私有化构造方法
         DiskManager();
         ~DiskManager();
+
+        static DiskManager* instance;
 
         vector<DiskListener *> listeners; // 监听器列表
 

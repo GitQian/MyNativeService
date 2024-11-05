@@ -9,10 +9,15 @@ DiskManager::~DiskManager()
 {
 }
 
+
+DiskManager *DiskManager::instance = nullptr;
+
 DiskManager &DiskManager::getInstance()
 {
-    static DiskManager instance;
-    return instance;
+    if(instance == nullptr) {
+        instance = new DiskManager();
+    }
+    return *instance;
 }
 
 void DiskManager::registerListener(DiskListener *listener)
