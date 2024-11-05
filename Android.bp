@@ -22,7 +22,7 @@ cc_defaults {
 cc_binary {
     name: "MyOTAServer",
     defaults: ["MyDemoflags"],
-    srcs: ["IOTA.cpp", "OTAServer.cpp", "main.cpp", "ICallback.cpp"],
+    srcs: ["IOTA.cpp", "OTAServer.cpp", "main.cpp", "ICallback.cpp", "DiskManager.cpp"],
 
     shared_libs: [
         "liblog",

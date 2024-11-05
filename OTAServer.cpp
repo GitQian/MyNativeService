@@ -9,12 +9,21 @@
 #include <binder/ProcessState.h>
 #include <binder/IServiceManager.h>
 #include <binder/BinderService.h>
+#include <string>
 #include "com/hsae/ICallback.h"
 #include "com/hsae/BnCallback.h"
 #include "com/hsae/BpCallback.h"
 #include "OTAServer.h"
+#include "DiskManager.h"
 
 using namespace android;
+using namespace DiskFind;
+using namespace std;
+
+OTAService::OTAService()
+{
+    DiskManager::getInstance().registerListener(this); // 注册监听器
+}
 
 android::String16 OTAService::getServiceName()
 {
@@ -29,11 +38,12 @@ android::binder::Status OTAService::update()
 ::android::binder::Status OTAService::detect(bool *_aidl_return)
 {
     ALOGI("OTA detect called");
+    DiskManager::getInstance().findUdisk();
     if (mCallback.get() != nullptr)
     {
         mCallback->onDetected(true);
     }
-    
+
     *_aidl_return = true;
     return ::android::binder::Status();
 }
@@ -43,4 +53,9 @@ android::binder::Status OTAService::update()
     ALOGI("OTA registerCallback called");
     mCallback = callback;
     return ::android::binder::Status();
+}
+
+void OTAService::onUdiskStateChanged(int usbState, string usbPath)
+{
+    ALOGI("OTA onUdiskStateChanged called usbState:%d, usbPath:%s", usbState, usbPath.c_str());
 }
