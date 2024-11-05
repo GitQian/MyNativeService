@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <mutex>
 
 using namespace std;
 
@@ -16,7 +17,6 @@ namespace DiskFind
     class DiskListener
     {
     private:
-        
     public:
         virtual void onUdiskStateChanged(int usbState, string usbPath) = 0; // U盘状态改变时的回调函数
         virtual ~DiskListener() {}                                          // 添加虚析构函数
@@ -29,7 +29,9 @@ namespace DiskFind
         DiskManager();
         ~DiskManager();
 
-        static DiskManager* instance;
+        static DiskManager *instance;
+        // 静态互斥锁，用于线程安全的加锁操作
+        static std::mutex mtx;
 
         vector<DiskListener *> listeners; // 监听器列表
 
@@ -44,4 +46,3 @@ namespace DiskFind
     };
 
 }
-

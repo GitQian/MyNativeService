@@ -15,7 +15,10 @@ DiskManager *DiskManager::instance = nullptr;
 DiskManager &DiskManager::getInstance()
 {
     if(instance == nullptr) {
-        instance = new DiskManager();
+        std::lock_guard<std::mutex> lock(mutex); // 加锁
+        if(instance == nullptr) {
+            instance = new DiskManager();
+        }
     }
     return *instance;
 }
