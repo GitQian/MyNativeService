@@ -9,6 +9,7 @@ using namespace std;
 /**
 1、有虚函数必须声明虚析构函数
 2、单例为了安全，添加禁止构造函数和赋值操作符
+3、线程安全的单例，加入互斥锁
 
  */
 
@@ -42,6 +43,7 @@ namespace DiskFind
     public:
         static DiskManager &getInstance();             // 获取单例对象
         void registerListener(DiskListener *listener); // 注册监听器
+        void unregisterListener(DiskListener *listener); // 注销监听器
         void findUdisk();                              // 查找U盘
     };
 

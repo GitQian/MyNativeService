@@ -31,10 +31,24 @@ void DiskManager::registerListener(DiskListener *listener)
     }
 }
 
+void DiskFind::DiskManager::unregisterListener(DiskListener *listener)
+{
+    auto it = std::find(listeners.begin(), listeners.end(), listener); // 查找监听器
+    if (it != listeners.end()){
+        listeners.erase(it);
+    }
+}
+
 void DiskFind::DiskManager::findUdisk()
 {
-    for (DiskFind::DiskListener* listener : listeners)
+    // for (DiskFind::DiskListener* listener : listeners)
+    // {
+    //     listener->onUdiskStateChanged(1, "U盘已插入"); // 通知所有监听器找到U盘
+    // }
+
+    //使用迭代器遍历listeners，迭代器可以理解为指针，指向listeners中的元素
+    for (auto it = listeners.begin(); it != listeners.end(); ++it)
     {
-        listener->onUdiskStateChanged(1, "U盘已插入"); // 通知所有监听器找到U盘
+        (*it)->onUdiskStateChanged(1, "U盘已插入"); // 通知所有监听器找到U盘
     }
 }
