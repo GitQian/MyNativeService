@@ -45,6 +45,8 @@ namespace DiskFind
         void registerListener(DiskListener *listener); // 注册监听器
         void unregisterListener(DiskListener *listener); // 注销监听器
         void findUdisk();                              // 查找U盘
+
+        void communicateWithVold();
     };
 
 }
