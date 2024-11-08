@@ -15,10 +15,12 @@
 #include "com/hsae/BpCallback.h"
 #include "OTAServer.h"
 #include "DiskManager.h"
+#include "JavaOTAServiceProxy.h"
 
 using namespace android;
 using namespace DiskFind;
 using namespace std;
+using namespace com::hsae;
 
 OTAService::OTAService()
 {
@@ -39,6 +41,9 @@ android::binder::Status OTAService::update()
 {
     ALOGI("OTA detect called");
     DiskManager::getInstance().findUdisk();
+    JavaOTAServiceProxy javaProxy;
+    javaProxy.sendCheckPackage();
+    javaProxy.sendInstallPackage();
     if (mCallback.get() != nullptr)
     {
         mCallback->onDetected(true);

@@ -22,7 +22,14 @@ cc_defaults {
 cc_binary {
     name: "MyOTAServer",
     defaults: ["MyDemoflags"],
-    srcs: ["IOTA.cpp", "OTAServer.cpp", "main.cpp", "ICallback.cpp", "DiskManager.cpp"],
+    srcs: ["IOTA.cpp", "OTAServer.cpp", "main.cpp", "ICallback.cpp", "DiskManager.cpp", "JavaOTAServiceProxy.cpp",
+    "aidl-gen/**/*.cpp",
+],
+
+    local_include_dirs: [
+        "aidl-gen",
+    ],
+
 
     shared_libs: [
         "liblog",
