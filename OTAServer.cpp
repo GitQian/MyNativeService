@@ -41,9 +41,8 @@ android::binder::Status OTAService::update()
 {
     ALOGI("OTA detect called");
     DiskManager::getInstance().findUdisk();
-    JavaOTAServiceProxy javaProxy;
-    javaProxy.sendCheckPackage();
-    javaProxy.sendInstallPackage();
+    JavaOTAServiceProxy::getInstance()->sendCheckPackage();
+    JavaOTAServiceProxy::getInstance()->sendInstallPackage();
     if (mCallback.get() != nullptr)
     {
         mCallback->onDetected(true);

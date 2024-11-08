@@ -10,28 +10,40 @@ using namespace std;
 using namespace android;
 using namespace com::hsae::adaptersdk::ota;
 
+// 初始化静态成员
+com::hsae::JavaOTAServiceProxy *com::hsae::JavaOTAServiceProxy::instance = nullptr;
+
+com::hsae::JavaOTAServiceProxy *com::hsae::JavaOTAServiceProxy::getInstance()
+{
+    if (instance == nullptr)
+    {
+        instance = new JavaOTAServiceProxy();
+    }
+    return instance;
+}
+
 sp<IBinder> com::hsae::JavaOTAServiceProxy::getBinder()
 {
-    if (ibinder == nullptr)
+    if (binder == nullptr)
     {
         sp<IServiceManager> sm = defaultServiceManager();
-        ibinder = sm->getService(String16("com.hsae.otaservice.IBINDER_OTA_SERVICE"));
-        if (ibinder == nullptr)
+        binder = sm->getService(String16("com.hsae.otaservice.IBINDER_OTA_SERVICE"));
+        if (binder == nullptr)
         {
             ALOGE("Failed to get IBinder for OTA Service.");
         }
     }
-    return ibinder;
+    return binder;
 }
 
 sp<ICSCUpdateInterface> com::hsae::JavaOTAServiceProxy::getService()
 {
-    mProxy = ICSCUpdateInterface::asInterface(getBinder());
-    if (mProxy == nullptr)
+    proxy = ICSCUpdateInterface::asInterface(getBinder());
+    if (proxy == nullptr)
     {
         ALOGE("Failed to get ICSCUpdateInterface.");
     }
-    return mProxy;
+    return proxy;
 }
 
 /**
